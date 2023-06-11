@@ -1,0 +1,56 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Executables
+*.exe
+*.app
+*.out
+
+# Generated files
+build/
+JuceLibraryCode/
+
+# IDE-specific files
+.vscode/
+*.xcodeproj/
+*.xcworkspace/
+*.sln
+*.user
+*.suo
+*.userprefs
+*.swp
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.filters
+*.csproj.user
+*.pidb
+*.ipch/
+*.aps
+*.bsc
+*.sln.docstates
+
+# macOS specific files
+.DS_Store
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Personal or sensitive information (if applicable)
+config.ini
+secrets.json
