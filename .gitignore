@@ -54,3 +54,24 @@ Thumbs.db
 # Personal or sensitive information (if applicable)
 config.ini
 secrets.json
+
+# macOS
+.DS_Store
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+
+# Build files
+Builds/
+*.build/
+
+# Compiled binaries
+*.app
+*.exe
+*.dll
+*.so
+
+# JUCE-specific files
+JuceLibraryCode/

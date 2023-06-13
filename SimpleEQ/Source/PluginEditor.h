@@ -22,6 +22,8 @@ public:
 
     //==============================================================================
     void paint (juce::Graphics&) override;
+   
+    
     void resized() override;
     
 
@@ -35,6 +37,12 @@ private:
     juce::Slider delaySlider;
     juce::Slider highPassSlider;
     juce::Slider lowPassSlider;
+    juce::Slider gainSlider;
+    juce::Slider freqSlider;
+    
+    juce::Label textLabel1;
+    juce::Label textLabel2;
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleEQAudioProcessorEditor)
 };

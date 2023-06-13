@@ -16,24 +16,62 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (800, 200);
     
-    //Add the sliders 
+    //Add the sliders
     reverbSlider.setSliderStyle(juce::Slider::Rotary);
-    reverbSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    reverbSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
+    reverbSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
+    reverbSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
+    reverbSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
+    reverbSlider.setValue(0.0); // Set default value
+    reverbSlider.setTextValueSuffix(" Reverb");
     addAndMakeVisible(reverbSlider);
     
     delaySlider.setSliderStyle(juce::Slider::Rotary);
-    delaySlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    delaySlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
+    delaySlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
+    delaySlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
+    delaySlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
+    delaySlider.setValue(0.0); // Set default value
+    delaySlider.setTextValueSuffix(" Delay");
     addAndMakeVisible(delaySlider);
     
-    highPassSlider.setSliderStyle(juce::Slider::Rotary);
-    highPassSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    lowPassSlider.setSliderStyle(juce::Slider::Rotary);
+    lowPassSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
+    lowPassSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
+    lowPassSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
+    lowPassSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
+    lowPassSlider.setValue(0.0); // Set default value
+    lowPassSlider.setTextValueSuffix(" LowPass");
     addAndMakeVisible(highPassSlider);
     
-    lowPassSlider.setSliderStyle(juce::Slider::Rotary);
-    lowPassSlider.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    highPassSlider.setSliderStyle(juce::Slider::Rotary);
+    highPassSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
+    highPassSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
+    highPassSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
+    highPassSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
+    highPassSlider.setValue(0.0); // Set default value
+    highPassSlider.setTextValueSuffix(" HighPass");
     addAndMakeVisible(lowPassSlider);
+    
+    gainSlider.setSliderStyle(juce::Slider::Rotary);
+    gainSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
+    gainSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
+    gainSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
+    gainSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
+    gainSlider.setValue(0.0); // Set default value
+    gainSlider.setTextValueSuffix(" Gain");
+    addAndMakeVisible(gainSlider);
+
+    freqSlider.setSliderStyle(juce::Slider::Rotary);
+    freqSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
+    freqSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
+    freqSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
+    freqSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
+    freqSlider.setValue(0.0); // Set default value
+    freqSlider.setTextValueSuffix(" Frequency");
+    addAndMakeVisible(freqSlider);
     
     //Add the labels for the sliders
     juce::Label reverbLabel;
@@ -57,6 +95,65 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     addAndMakeVisible(lowPassLabel);
 
     
+    ///TEXT
+    textLabel1.setText("ChickenTools VST", juce::dontSendNotification);
+    textLabel1.setFont(juce::Font(20.0f)); // Set the font size for text line 1
+
+    textLabel2.setText("made with love by @netpawn", juce::dontSendNotification);
+    textLabel2.setFont(juce::Font(15.0f)); // Set the font size for text line 2
+
+    addAndMakeVisible(textLabel1);
+    addAndMakeVisible(textLabel2);
+
+    
+    
+    
+    juce::Rectangle<int> reverbBounds = reverbSlider.getBounds();
+    int reverbX = reverbBounds.getX();
+    int reverbY = reverbBounds.getY();
+    int reverbRight = reverbBounds.getRight();
+    int reverbBottom = reverbBounds.getBottom();
+
+    juce::Rectangle<int> delayBounds = delaySlider.getBounds();
+    int delayX = delayBounds.getX();
+    int delayY = delayBounds.getY();
+    int delayRight = delayBounds.getRight();
+    int delayBottom = delayBounds.getBottom();
+    juce::Rectangle<int> lowPassBounds = lowPassSlider.getBounds();
+    int lowPassX = lowPassBounds.getX();
+    int lowPassY = lowPassBounds.getY();
+    int lowPassRight = lowPassBounds.getRight();
+    int lowPassBottom = lowPassBounds.getBottom();
+
+    juce::Rectangle<int> highPassBounds = highPassSlider.getBounds();
+    int highPassX = highPassBounds.getX();
+    int highPassY = highPassBounds.getY();
+    int highPassRight = highPassBounds.getRight();
+    int highPassBottom = highPassBounds.getBottom();
+
+    juce::Rectangle<int> gainBounds = gainSlider.getBounds();
+    int gainX = gainBounds.getX();
+    int gainY = gainBounds.getY();
+    int gainRight = gainBounds.getRight();
+    int gainBottom = gainBounds.getBottom();
+
+    juce::Rectangle<int> filterBounds = freqSlider.getBounds();
+    int filterX = freqSlider.getX();
+    int filterY = freqSlider.getY();
+    int filterRight = freqSlider.getRight();
+    int filterBottom = freqSlider.getBottom();
+
+
+    // Repeat the same for other sliders...
+
+    // Print the coordinates
+    std::cout << "Reverb: X = " << reverbX << ", Y = " << reverbY << ", Right = " << reverbRight << ", Bottom = " << reverbBottom << std::endl;
+    std::cout << "Delay: X = " << delayX << ", Y = " << delayY << ", Right = " << delayRight << ", Bottom = " << delayBottom << std::endl;
+    // Print coordinates for other sliders...
+    std::cout << "Low Pass: X = " << lowPassX << ", Y = " << lowPassY << ", Right = " << lowPassRight << ", Bottom = " << lowPassBottom << std::endl;
+    std::cout << "High Pass: X = " << highPassX << ", Y = " << highPassY << ", Right = " << highPassRight << ", Bottom = " << highPassBottom << std::endl;
+    std::cout << "Gain: X = " << gainX << ", Y = " << gainY << ", Right = " << gainRight << ", Bottom = " << gainBottom << std::endl;
+    std::cout << "Filter: X = " << filterX << ", Y = " << filterY << ", Right = " << filterRight << ", Bottom = " << filterBottom << std::endl;
     
 }
 
@@ -68,11 +165,11 @@ SimpleEQAudioProcessorEditor::~SimpleEQAudioProcessorEditor()
 void SimpleEQAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    g.fillAll (juce::Colours::grey);
 
-    g.setColour (juce::Colours::green);
+    g.setColour (juce::Colours::black);
     g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    
 }
 
 void SimpleEQAudioProcessorEditor::resized()
@@ -80,12 +177,21 @@ void SimpleEQAudioProcessorEditor::resized()
     const int padding = 10;
     const int sliderWidth = 100;
     const int sliderHeight = 100;
+
+    const int startX = ((getWidth() - (6 * sliderWidth + 3 * padding)) / 2)+60;
+    const int startY = (getHeight() - (sliderHeight + 20 + padding)) / 2;
+
+    reverbSlider.setBounds(startX, startY, sliderWidth, sliderHeight);
+    delaySlider.setBounds(startX + sliderWidth + padding, startY, sliderWidth, sliderHeight);
+    highPassSlider.setBounds(startX + 2 * (sliderWidth + padding), startY, sliderWidth, sliderHeight);
+    lowPassSlider.setBounds(startX + 3 * (sliderWidth + padding), startY, sliderWidth, sliderHeight);
+    gainSlider.setBounds(startX + 4 * (sliderWidth + padding), startY, sliderWidth, sliderHeight);
+    freqSlider.setBounds(startX + 5 * (sliderWidth + padding), startY, sliderWidth, sliderHeight);
+    textLabel1.setTopLeftPosition(0,0);
+    textLabel1.setSize(200, 20);
+    textLabel2.setTopLeftPosition(605,180);
+    textLabel2.setSize(200, 20);
+
     
-    const int startX = padding;
-    const int startY = padding;
-    
-    reverbSlider.setBounds (startX, startY, sliderWidth, sliderHeight);
-    delaySlider.setBounds (startX + sliderWidth + padding, startY, sliderWidth, sliderHeight);
-    highPassSlider.setBounds (startX, startY + sliderHeight + padding, sliderWidth, sliderHeight);
-    lowPassSlider.setBounds (startX + sliderWidth + padding, startY + sliderHeight + padding, sliderWidth, sliderHeight);
 }
+
