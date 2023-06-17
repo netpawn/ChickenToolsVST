@@ -1,18 +1,6 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #pragma once
-
 #include <JuceHeader.h>
 
-//==============================================================================
-/**
-*/
 class SimpleEQAudioProcessor  : public juce::AudioProcessor
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
@@ -56,7 +44,27 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    
+    float getRoomSize() const;
+    float getDamping() const;
+    float getDryLevel() const;
+    float getWetLevel() const;
+    float getWidth() const;
+    void setRoomSize(float value);
+    void setDamping(float value);
+    void setDryLevel(float value);
+    void setWetLevel(float value);
+    void setWidth(float value);
+
 private:
+    //=======REVERB
+    juce::Reverb reverb;
+    juce::Reverb::Parameters parameters;
+    float reverbRoomSize;
+    float reverbDamping;
+    float reverbWetLevel;
+    float reverbDryLevel;
+    float reverbWidth;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleEQAudioProcessor);
 };

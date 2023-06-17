@@ -8,6 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <juce_gui_extra/juce_gui_extra.h>
 
 
 //==============================================================================
@@ -18,13 +19,14 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     // editor's size to whatever you need it to be.
     setSize (800, 200);
     
+    
     //Add the sliders
     reverbSlider.setSliderStyle(juce::Slider::Rotary);
     reverbSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
     reverbSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
     reverbSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
     reverbSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
-    reverbSlider.setValue(0.0); // Set default value
+    reverbSlider.setValue(audioProcessor.getRoomSize()); // Set default value
     reverbSlider.setTextValueSuffix(" Reverb");
     addAndMakeVisible(reverbSlider);
     
@@ -33,7 +35,7 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     delaySlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
     delaySlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
     delaySlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
-    delaySlider.setValue(0.0); // Set default value
+    reverbSlider.setValue(audioProcessor.getDamping());
     delaySlider.setTextValueSuffix(" Delay");
     addAndMakeVisible(delaySlider);
     
@@ -42,7 +44,7 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     lowPassSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
     lowPassSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
     lowPassSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
-    lowPassSlider.setValue(0.0); // Set default value
+    reverbSlider.setValue(audioProcessor.getWetLevel());
     lowPassSlider.setTextValueSuffix(" LowPass");
     addAndMakeVisible(highPassSlider);
     
@@ -51,7 +53,7 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     highPassSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
     highPassSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
     highPassSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
-    highPassSlider.setValue(0.0); // Set default value
+    reverbSlider.setValue(audioProcessor.getDryLevel());
     highPassSlider.setTextValueSuffix(" HighPass");
     addAndMakeVisible(lowPassSlider);
     
@@ -60,7 +62,7 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     gainSlider.setColour(juce::Slider::textBoxTextColourId, juce::Colours::white);
     gainSlider.setColour(juce::Slider::textBoxBackgroundColourId, juce::Colour(0x00000000));
     gainSlider.setRange(0.0, 10.0, 0.1); // Set range with step size of 0.1
-    gainSlider.setValue(0.0); // Set default value
+    reverbSlider.setValue(audioProcessor.getWidth());
     gainSlider.setTextValueSuffix(" Gain");
     addAndMakeVisible(gainSlider);
 
@@ -104,10 +106,9 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
 
     addAndMakeVisible(textLabel1);
     addAndMakeVisible(textLabel2);
-
     
     
-    
+    //positioning the UI
     juce::Rectangle<int> reverbBounds = reverbSlider.getBounds();
     int reverbX = reverbBounds.getX();
     int reverbY = reverbBounds.getY();
@@ -138,10 +139,10 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     int gainBottom = gainBounds.getBottom();
 
     juce::Rectangle<int> filterBounds = freqSlider.getBounds();
-    int filterX = freqSlider.getX();
-    int filterY = freqSlider.getY();
-    int filterRight = freqSlider.getRight();
-    int filterBottom = freqSlider.getBottom();
+    int filterX = filterBounds.getX();
+    int filterY = filterBounds.getY();
+    int filterRight = filterBounds.getRight();
+    int filterBottom = filterBounds.getBottom();
 
 
     // Repeat the same for other sliders...
@@ -194,4 +195,3 @@ void SimpleEQAudioProcessorEditor::resized()
 
     
 }
-
