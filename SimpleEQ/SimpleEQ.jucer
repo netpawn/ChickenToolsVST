@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="i1kuOr" name="SimpleEQ" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              companyWebsite="www.netpawn.net" companyName="netpawn " version="0.1 "
+              pluginManufacturerCode="netp">
   <MAINGROUP id="FAOVnS" name="SimpleEQ">
     <GROUP id="{4967C38C-1FA7-7DA2-FDCD-8B3331549F2F}" name="Source">
       <FILE id="RtjrTL" name="PluginProcessor.cpp" compile="1" resource="0"

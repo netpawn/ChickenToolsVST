@@ -11,6 +11,7 @@ class SimpleEQAudioProcessorEditor  : public juce::AudioProcessorEditor
 public:
     SimpleEQAudioProcessorEditor (SimpleEQAudioProcessor&);
     ~SimpleEQAudioProcessorEditor() override;
+    
 
     //==============================================================================
     void paint (juce::Graphics&) override;
@@ -34,6 +35,10 @@ private:
     
     juce::Label textLabel1;
     juce::Label textLabel2;
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> reverbSliderAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState> audioProcessorValueTreeState;
+
 
 
 

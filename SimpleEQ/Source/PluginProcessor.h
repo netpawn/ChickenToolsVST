@@ -1,7 +1,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-class SimpleEQAudioProcessor  : public juce::AudioProcessor
+class SimpleEQAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
                             #endif
@@ -55,6 +55,9 @@ public:
     void setDryLevel(float value);
     void setWetLevel(float value);
     void setWidth(float value);
+    
+    void parameterChanged(const juce::String& parameterID, float newValue) override;
+
 
 private:
     //=======REVERB

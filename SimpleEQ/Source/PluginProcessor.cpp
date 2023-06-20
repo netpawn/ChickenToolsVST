@@ -108,7 +108,6 @@ void SimpleEQAudioProcessor::setRoomSize(float value)
 {
     parameters.roomSize = value;
 }
-
 void SimpleEQAudioProcessor::setDamping(float value)
 {
     parameters.damping = value;
@@ -132,6 +131,7 @@ void SimpleEQAudioProcessor::setWidth(float value)
 void SimpleEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     //initialize reverb
+    
     juce::Reverb::Parameters reverbParams;
     reverbParams.roomSize = reverbRoomSize;
     reverbParams.damping = reverbDamping;
@@ -140,6 +140,16 @@ void SimpleEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     reverbParams.width = reverbWidth;
     reverb.setParameters(reverbParams);
     reverb.setSampleRate(sampleRate);
+}
+void SimpleEQAudioProcessor::parameterChanged(const juce::String& parameterID, float newValue)
+{
+    // Check if the parameter ID matches the "Reverb" parameter
+    if (parameterID == "Reverb")
+    {
+        // Update the effect parameter with the new value
+        // (replace "reverbParameter" with your actual parameter variable)
+        reverbRoomSize = newValue;
+    }
 }
 
 void SimpleEQAudioProcessor::releaseResources()

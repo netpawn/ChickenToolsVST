@@ -1,11 +1,3 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include <juce_gui_extra/juce_gui_extra.h>
@@ -29,6 +21,16 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     reverbSlider.setValue(audioProcessor.getRoomSize()); // Set default value
     reverbSlider.setTextValueSuffix(" Reverb");
     addAndMakeVisible(reverbSlider);
+    // Create the AudioProcessorValueTreeState object
+    audioProcessorValueTreeState = std::make_unique<juce::AudioProcessorValueTreeState>(audioProcessor, nullptr);
+
+        // Attach the reverb slider to the "Reverb" parameter
+    reverbSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(*audioProcessorValueTreeState, "Reverb", reverbSlider);
+
+        // Add the audio processor as a listener to the AudioProcessorValueTreeState
+    audioProcessorValueTreeState->addParameterListener("Reverb", &audioProcessor);
+
+    
     
     delaySlider.setSliderStyle(juce::Slider::Rotary);
     delaySlider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 20);
@@ -74,6 +76,8 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
     freqSlider.setValue(0.0); // Set default value
     freqSlider.setTextValueSuffix(" Frequency");
     addAndMakeVisible(freqSlider);
+        
+
     
     //Add the labels for the sliders
     juce::Label reverbLabel;
@@ -192,6 +196,4 @@ void SimpleEQAudioProcessorEditor::resized()
     textLabel1.setSize(200, 20);
     textLabel2.setTopLeftPosition(605,180);
     textLabel2.setSize(200, 20);
-
-    
 }
